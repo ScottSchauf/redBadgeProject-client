@@ -1,21 +1,39 @@
 import { Component, SyntheticEvent } from 'react';
 import DisplayResults from './DisplayResults';
 import {IResult} from './Interfaces';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import CSS from 'csstype';
 
 interface IState {
     searchTerm: string;
     results: IResult[];
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    button: {
-      margin: theme.spacing(1),
-    },
-  }),
-);
+const h2Styles: CSS.Properties = {
+    textAlign: "center"
+};
+
+const buttonStyles: CSS.Properties = {
+    color: "white",
+    border: "2px solid white",
+    marginLeft: "20px",
+    height: "32px",
+    width: "20%",
+};
+
+const inputStyles: CSS.Properties = {
+    backgroundColor: "black",
+    border: "2px solid white",
+    height: "25px",
+    width: "75%",
+    color: "white",
+};
+
+const formStyles: CSS.Properties = {
+    display: "flex",
+    alignItems: "center",
+    marginBottom: "5px",
+}
 
 export default class MovieSearch extends Component<{}, IState> {
     constructor(props: {}) {
@@ -40,9 +58,6 @@ export default class MovieSearch extends Component<{}, IState> {
         this.setState({
             results: data.Search
         });
-
-        console.log(data.Search);
-        console.log(this.state.results);
     }
 
     handleSubmit(event: SyntheticEvent): void {
@@ -52,7 +67,6 @@ export default class MovieSearch extends Component<{}, IState> {
 
     handleChange(event: SyntheticEvent) {
         const input = event.target as HTMLInputElement;
-        console.log(input.name, input.value)
         this.setState((prevState: IState) => {
             let pick: Pick<IState, keyof IState> = {
                 ...prevState,
@@ -65,11 +79,12 @@ export default class MovieSearch extends Component<{}, IState> {
     render() {
         return (
             <div>
-                <h2>Search for a Film:</h2>
-                <form onSubmit={this.handleSubmit}>
-                    <input type="text" id="searchTerm" name="searchTerm" value={this.state.searchTerm} onChange={this.handleChange}/>
+                <h2 style={h2Styles}>Search for a Film:</h2>
+                <form onSubmit={this.handleSubmit} style={formStyles}>
+                    <input type="text" id="searchTerm" name="searchTerm" value={this.state.searchTerm} onChange={this.handleChange} style={inputStyles}/>
                 <Button 
                 type="submit"
+                style={buttonStyles}
                 >
                     Search!
                 </Button>

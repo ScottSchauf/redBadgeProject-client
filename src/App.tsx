@@ -2,7 +2,8 @@ import React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import MovieSearch from './Components/MovieSearch/MovieSearch'
+import MovieSearch from './Components/MovieSearch/MovieSearch';
+import Auth from './Components/Auth/Auth';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -12,7 +13,9 @@ const useStyles = makeStyles((theme: Theme) =>
     paper: {
       padding: theme.spacing(2),
       color: theme.palette.text.secondary,
-      height: "100vh",
+      minHeight: "95vh",
+      height: "100%",
+      borderRadius: 0,
     },
   }),
 );
@@ -36,12 +39,7 @@ export default function CenteredGrid() {
         </Grid>
         <Grid item xs={6}>
           <Paper className={classes.paper}>
-            This will house the various landing pages.
-            <ul>
-              <li>No token will display Register and Log-In Forms</li>
-              <li>A token will display a Class component that houses ProfileDisplay and CollectionDisplay components.</li>
-              <li>An Admin will see a list of all users, whose names link to their landing pages.</li>
-            </ul>
+            <Auth/>
           </Paper>
         </Grid>
       </Grid>

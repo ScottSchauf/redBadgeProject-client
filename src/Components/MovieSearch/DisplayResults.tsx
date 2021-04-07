@@ -2,10 +2,8 @@ import {IResult} from './Interfaces';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
 interface IProps {
@@ -14,9 +12,24 @@ interface IProps {
 
 const useStyles = makeStyles({
     root: {
-      maxWidth: 200,
+      maxWidth: 300,
+      display: "inline-block",
+    },
+    card: {
+        position: "relative",
+        display: "inline-block",
+        margin: 5,
+    },
+    poster: {
+        height: 100,
+    },
+    body: {
+        height: 150,
+        backgroundColor: "white",
+        color: "black",
     },
   });
+
 
 const DisplayResults = ({results}: IProps) => {
     const classes = useStyles();
@@ -25,8 +38,8 @@ const DisplayResults = ({results}: IProps) => {
         <div>
             {results.map((result) => {
                 return (
-                    <div>
-                        <Card className={classes.root}>
+                    <div className={classes.root}>
+                        <Card className={classes.card}>
                         <CardActionArea>
                         <CardMedia
                         component="img"
@@ -36,25 +49,23 @@ const DisplayResults = ({results}: IProps) => {
                         image={result.Poster}
                         title="Movie Poster"
                         key={result.imdbID}
+                        className={classes.poster}
                         />
-                        <CardContent>
+                        <CardContent className={classes.body}>
                         <Typography key={result.imdbID} gutterBottom variant="h5" component="h2">
                             {result.Title}
                         </Typography>
-                        <Typography variant="body2" color="textSecondary" component="p">
-                            {result.imdbID}<br/>
+                        <Typography variant="body2" component="p">
+                            <a href={`https://www.imdb.com/title/${result.imdbID}`} target="_blank">More Info</a>
+                            <br/>
                             {result.Year}
+                        </Typography>
+                        <Typography variant="body2" component="p" className={classes.body}>
+                            <h3>Similar Films</h3>
+                            <a href="http://www.google.com">TasteDive API results</a>
                         </Typography>
                         </CardContent>
                     </CardActionArea>
-                    <CardActions>
-                        <Button size="small" color="primary">
-                        Share
-                        </Button>
-                        <Button size="small" color="primary">
-                        Learn More
-                        </Button>
-                    </CardActions>
                     </Card>
                     </div>
                 )
