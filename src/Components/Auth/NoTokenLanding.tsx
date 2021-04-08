@@ -1,82 +1,27 @@
-import { Component, SyntheticEvent } from 'react';
+import { Component } from 'react';
+import Register from './Register';
+import Login from './Login';
 
-interface INoToken {
-    firstName?: string;
-    lastName?: string;
-    email: string;
-    password: string;
+interface IUser {
     token: string;
+    isAdmin: boolean;
 }
 
-export default class NoTokenLanding extends Component<{}, INoToken> {
+export default class Auth extends Component<{}, IUser> {
     constructor(props: {}) {
         super(props);
         this.state = {
-            firstName: "",
-            lastName: "",
-            email: "",
-            password: "",
             token: "",
+            isAdmin: false,
         };
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleChange = this.handleChange.bind(this);
-    }
-
-
-    handleSubmit(event: SyntheticEvent): void {
-        event.preventDefault();
-        
-        this.setState({
-
-        })
-    }
-
-    handleChange(event: SyntheticEvent) {
-        const input = event.target as HTMLInputElement;
-        this.setState((prevState: INoToken) => {
-            let pick: Pick<INoToken, keyof INoToken> = {
-                ...prevState,
-                [input.name]: input.value
-            }
-            return pick
-        });
     }
 
     render() {
         return (
             <div>
-                <h1>Register</h1>
-                <form onSubmit={this.handleSubmit}>
-                    <input
-                    type="firstName"
-                    placeholder="First Name"
-                    name="firstName"
-                    value={this.state.firstName}
-                    onChange={this.handleChange}
-                    />
-                    <input
-                    type="lastName"
-                    placeholder="Last Name"
-                    name="lastName"
-                    value={this.state.lastName}
-                    onChange={this.handleChange}
-                    />
-                    <input
-                    type="email"
-                    placeholder="Email Address"
-                    name="email"
-                    value={this.state.email}
-                    onChange={this.handleChange}
-                    />
-                    <input
-                    type="password"
-                    placeholder="Password"
-                    name="password"
-                    value={this.state.password}
-                    onChange={this.handleChange}
-                    />
-                    <button type="submit">Submit!</button>
-                </form>
+                <Register/>
+                <hr/>
+                <Login/>
             </div>
         )
     }

@@ -4,33 +4,63 @@ import NoTokenLanding from './NoTokenLanding';
 import UserLanding from './UserLanding';
 
 interface IUser {
-    token: string;
+    id: string;
+    token: any;
     isAdmin: boolean;
 }
 
-export default class Auth extends Component<{}, IUser> {
-    constructor(props: {}) {
+type AcceptedProps = {}
+
+export default class Auth extends Component<AcceptedProps, IUser> {
+    constructor(props: AcceptedProps) {
         super(props);
         this.state = {
+            id: "",
             token: "",
             isAdmin: false,
         };
     }
 
-tokenFetch() {
-    // ComponentDidMount to fetch the token stored in localStorage.getItem("token"), use setState, then display the appropriate display.
+setToken() {
+    localStorage.getItem("token");
+    this.setState({
+        token: localStorage.getItem("token"),
+    })
+    console.log(this.state.token);
 }
 
-displaySelector() {
-    console.log('test');
-    // Examine our state of 'token', and invoke an if/else statement that returns one of three components. ComponentDidUpdate = Reselect a Display (once user registers/signs in, for example).
+componentDidMount() {
+    this.setToken();
 }
 
     render() {
         return (
             <div>
-                Function that returns one of three displays?
-                <NoTokenLanding/>
+                {
+                    (this.state.token !== "" && this.state.isAdmin === false)
+                    ? (
+                        <>
+                        <UserLanding/>
+                        </>
+                    )
+                    : (this.state.token !== "" && this.state.isAdmin === true)
+                    ? (
+                        <>
+                        {/* <AdminLanding/> */}
+                        </>
+                    )
+                    : (
+                        <>
+                        <NoTokenLanding/>
+                        </>
+                    )
+                }
+
+                {/* <NoTokenLanding/>
+                <hr/>
+                <AdminLanding/>
+                <hr/>
+                <UserLanding/> */}
             </div>
         )
     }

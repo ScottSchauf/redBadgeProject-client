@@ -25,7 +25,6 @@ const leftStyle = {
   color: 'white',
 }
 
-
 export default function CenteredGrid() {
   const classes = useStyles();
 
